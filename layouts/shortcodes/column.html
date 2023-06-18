@@ -1,0 +1,4 @@
+{{ $columnSize := .Get "size" | default "is-two-third" }}
+<div class="column {{$columnSize}}">
+  {{- .Inner -}}
+</div>

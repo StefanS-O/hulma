@@ -1,0 +1,12 @@
+name = "Hulma"
+license = "MIT"
+licenselink = "https://github.com/StefanS-O/hulma/blob/master/LICENSE"
+description = "A Bulma base theme for Hugo"
+homepage = "https://github.com/StefanS-O/hulma"
+tags = []
+features = []
+min_version = "0.112.6"
+
+[author]
+  name = "Stefan Schulte-Ortbeck"
+  homepage = "https://github.com/StefanS-O/hulma"

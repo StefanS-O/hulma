@@ -1,0 +1,66 @@
+<div id="mainnavbar" class="subsite">
+  <nav class="navbar main" role="navigation" aria-label="main navigation">
+      <div class="container is-fluid has-max-width">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <img src="/images/kolli_logoklein_trans2.png" alt="Logo Kollisionsabfrage" width="248" height="50">
+          </a>
+
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+          <div id="navbarBasicExample" class="navbar-menu has-text-centered">
+              <div class="navbar-end">
+
+                  {{ $currentPage := . }}
+                  {{ range .Site.Menus.main }}
+
+                  {{ $active := or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+                  {{ $active = or $active (eq .Name $currentPage.Title) }}
+                  {{ $active = or $active (and (eq (trim (path.Dir .URL) "/") $currentPage.Section) (ne $currentPage.Section "")) }}
+
+
+                  {{ if .HasChildren }}
+                          <div class="navbar-item has-dropdown is-hoverable {{ if $active }}active{{ end }}">
+
+                              <a href="{{ .URL }}" class="navbar-link navbar-dropdown-link {{ if $active }}active{{ end }}">
+                              <span class="has-text-weight-bold">{{ .Name }}</span>
+                          </a>
+
+
+
+
+                              <div class="navbar-dropdown">
+                              {{ range .Children }}
+                                  <a href="{{ .URL }}" class="navbar-item level-2 {{.Identifier}}">
+                                      {{ with.Pre }}
+                                          {{ $svgimage := print "static/svg/" . ".svg" }}
+                                          {{ $svgimage | readFile | safeHTML }}
+                                      {{ end }}
+                                  {{ .Name }}</a>
+                              {{ end }}
+                          </div>
+                      </div>
+                      {{ else }}
+
+
+                              <a href="{{ .URL }}" class="navbar-item">
+                                  {{ .Pre }}
+                                  <span>{{ .Name }}</span>
+                              </a>
+
+                      {{ end }}
+                  {{ end }}
+
+
+
+
+              </div>
+
+          </div>
+      </div>
+  </nav>
+</div>

@@ -1,0 +1,80 @@
+<!-- Meta Ttitles -->
+<title itemprop="name">{{ .Title -}}{{- if .Title }} | {{end}}{{ .Site.Title }}</title>
+<meta property="og:title" content="{{ .Title -}}{{- if .Title }} | {{end}}{{ .Site.Title }}" />
+<meta name="twitter:title" content="{{ .Title -}}{{- if .Title }} | {{end}}{{ .Site.Title }}" />
+<meta itemprop="name" content="{{ .Title -}}{{- if .Title }} | {{end}}{{ .Site.Title }}" />
+<meta name="application-name" content="{{ .Title -}}{{- if .Title }} | {{end}}{{ .Site.Title }}" />
+<meta property="og:site_name" content="{{ .Site.Title }}" />
+
+<!-- Meta Description -->
+<meta name="description" content="{{ if .Params.summary }}{{ .Params.summary }} {{ else if .Summary }} {{.Summary | truncate 160 }} {{ else if .Site.Params.Description }}{{ .Site.Params.Description }}{{ end }}" />
+<meta itemprop="description" content="{{ if .Params.summary }}{{ .Params.summary }} {{ else if .Summary }} {{.Summary | truncate 160 }} {{ else if .Site.Params.Description }}{{ .Site.Params.Description }}{{ end }}" />
+<meta property="og:description" content="{{ if .Params.summary }}{{ .Params.summary }} {{ else if .Summary }} {{.Summary | truncate 160 }} {{ else if .Site.Params.Description }}{{ .Site.Params.Description }}{{ end }}" />
+<meta property="twitter:description" content="{{ if .Params.summary }}{{ .Params.summary }}{{ else if .Summary }} {{.Summary | truncate 160 }} {{ else if .Site.Params.Description }}{{ .Site.Params.Description }}{{ end }}" />
+
+<!-- Meta Keywords -->
+<meta name="keywords" content="{{ if .Params.keywords }}{{ .Params.keywords }}{{ else if .Site.Params.Keywords }}{{ .Site.Params.Keywords }}{{ end }}" />
+
+<!-- Meta Links -->
+<base href="{{ .Permalink }}">
+<link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
+<meta name="url" content="{{ .Permalink }}" />
+<meta name="twitter:url" content="{{ .Permalink }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+
+<!-- Meta Languages -->
+<meta property="og:locale" content="{{ .Language.Lang }}">
+<meta name="language" content="{{ .Language.LanguageName }}">
+{{ range .AllTranslations }}
+  <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" title="{{ .Language.LanguageName }}">
+{{ end }}
+
+<!-- Meta Images -->
+{{ with .Params.featured_image }}
+{{ $imgLarge :=  (replace . "-125x125" "" 1)  }}
+{{ $img := resources.Get (printf "%s" $imgLarge) }}
+<meta itemprop="image" content="{{ $img | absURL }}" />
+<meta property="og:image" content="{{ $img | absURL }}" />
+<meta name="twitter:image" content="{{ $img | absURL }}" />
+<meta name="twitter:image:src" content="{{ $img | absURL }}" />
+{{ else }}
+<meta itemprop="image" content="{{ .Site.Params.ogimage | absURL }}" />
+<meta property="og:image" content="{{ .Site.Params.ogimage | absURL }}" />
+<meta name="twitter:image" content="{{ .Site.Params.ogimage | absURL }}" />
+<meta name="twitter:image:src" content="{{ .Site.Params.ogimage | absURL }}" />
+{{ end }}
+
+<!-- Meta Dates -->
+<meta property="og:updated_time" content={{ .Lastmod.Format "2006-01-02T15:04:05Z0700" | safeHTML }} />
+
+<!-- Sitemap & RSS Feed Tags -->
+<link rel="sitemap" type="application/xml" title="Sitemap" href="{{ .Site.BaseURL }}sitemap.xml" />
+
+{{/* with .OutputFormats.Get "RSS" */}}
+  <!-- <link href="{{ .Permalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+  <link href="{{ .Permalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" /> -->
+{{/* end */}}
+<link href="{{ .Site.Params.feed.rss }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+<link href="{{ .Site.Params.feed.rss }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
+
+<!-- Meta Pages -->
+<meta property="og:type" content="website" />
+<meta name="author" content="{{ .Site.Params.author }}" />
+
+<!-- Favicons -->
+<link rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+<!-- <link rel="manifest" href="/images/favicon/site.webmanifest">-->
+<link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/images/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
+
+<!-- iPhone Notch Theme Color -->
+<meta name="theme-color" content="#ffffff">
+
+<!-- Search Engine Crawler -->
+
+<meta name="robots" content="index,follow" />
+<meta name="googlebot" content="index,follow" />

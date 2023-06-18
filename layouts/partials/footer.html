@@ -1,0 +1,11 @@
+
+{{ $main := resources.Get "js/main.js" }}
+{{ $lazy := resources.Get "js/lazyload.js" }}
+{{ $defaultJS := slice $main $lazy | resources.Concat "js/global.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $defaultJS.Permalink }}"></script>
+
+<script>
+  var lazyLoadInstance = new LazyLoad({
+    // Your custom settings go here
+  });
+</script>
